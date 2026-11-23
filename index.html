@@ -4,8 +4,8 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, user-scalable=no">
   <title>Mein Revier – Hegen, Ernten, Ansitzen</title>
-  <meta name="description" content="Das Revier-Aufbauspiel für Jäger. Wildäcker bestellen, Hochsitze beschicken, Wildbret veredeln.">
-  <meta name="theme-color" content="#1f3a2b">
+  <meta name="description" content="Das Revier-Aufbauspiel für Jäger. Wildäcker bestellen, Hochsitze beschicken, Fallen stellen, Wildbret veredeln.">
+  <meta name="theme-color" content="#2b4334">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -15,40 +15,52 @@
   <link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Bitter:wght@500;700;800&family=Nunito:wght@500;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@500;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
   <div id="app">
-    <header id="topbar">
-      <button id="lvl" class="lvl" aria-label="Level">
+    <div id="map"></div>
+
+    <header id="hud-top">
+      <button id="lvl" class="chip lvl" data-act="hut" aria-label="Jagdhütte und Profil">
         <span class="lvl-num" id="lvl-num">1</span>
-        <span class="lvl-bar"><span id="xp-fill"></span></span>
-        <span class="lvl-xp" id="xp-text">0/7</span>
+        <span class="lvl-info"><b id="revier-name">Mein Revier</b><span class="lvl-bar"><span id="xp-fill"></span></span></span>
       </button>
       <div class="money">
-        <span class="pill" id="taler-pill"><i class="ico-taler"></i><b id="taler">0</b></span>
-        <span class="pill" id="grandel-pill"><i class="ico-grandel"></i><b id="grandeln">0</b></span>
+        <span class="chip" id="taler-pill" title="Taler"><i class="ico-taler"></i><b id="taler">0</b></span>
+        <span class="chip" id="grandel-pill" title="Grandeln"><i class="ico-grandel"></i><b id="grandeln">0</b></span>
+        <span class="chip" id="ansehen-pill" title="Ansehen in der Jägerschaft"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l2.6 5.4 5.9.8-4.3 4.1 1 5.8L12 16.4 6.8 19.1l1-5.8L3.5 9.2l5.9-.8z"/></svg><b id="ansehen">0</b></span>
       </div>
     </header>
 
-    <main id="view" aria-live="polite">
-      <div class="loading" id="loading">
-        <div class="loading-mark">🦌</div>
-        <p>Das Revier wird vorbereitet …</p>
-      </div>
-    </main>
+    <div id="scene-title" hidden></div>
 
-    <nav id="tabs">
-      <button data-tab="revier" class="active"><span>🌲</span>Revier</button>
-      <button data-tab="gasthaus"><span>🍺</span>Gasthaus<em class="badge" id="badge-gasthaus" hidden></em></button>
-      <button data-tab="lager"><span>📦</span>Lager</button>
-      <button data-tab="bauen"><span>🔨</span>Bauen<em class="badge" id="badge-bauen" hidden></em></button>
+    <nav id="hud-left">
+      <button class="nav" data-act="hof" id="btn-hof" hidden><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 11l8-6 8 6v9H4z M10 20v-5h4v5"/></svg><span>Hof</span></button>
+      <button class="nav" data-act="karte" id="btn-karte"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 6l6-2 6 2 6-2v14l-6 2-6-2-6 2z M9 4v14 M15 6v14"/></svg><span>Reviere</span></button>
     </nav>
+
+    <nav id="hud-right">
+      <button class="nav round" data-act="gasthaus" aria-label="Gasthaus"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 8h11v10a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2z M16 10h2a2 2 0 0 1 0 4h-2 M7 4c0 1 1 1 1 2 M11 4c0 1 1 1 1 2"/></svg><span>Gasthaus</span><em class="badge" id="badge-gasthaus" hidden></em></button>
+      <button class="nav round" data-act="lager" aria-label="Lager"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 8l9-5 9 5v8l-9 5-9-5z M3 8l9 5 9-5 M12 13v8"/></svg><span>Lager</span></button>
+      <button class="nav round" data-act="bauen" aria-label="Bauen"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M14 4l6 6-3 3-6-6z M11 7l-8 8 3 3 8-8"/></svg><span>Bauen</span><em class="badge" id="badge-bauen" hidden></em></button>
+    </nav>
+
+    <div id="editbar" hidden>
+      <span>Ziehe Gebäude und Äcker an einen neuen Platz.</span>
+      <button class="btn ghost small" data-act="edit-cancel">Abbrechen</button>
+      <button class="btn green small" data-act="edit-save">Fertig</button>
+    </div>
+
+    <div id="seedbar" hidden></div>
+
+    <div id="loading" class="loading"><div class="loading-mark">🦌</div><p>Das Revier wird vorbereitet …</p></div>
   </div>
 
-  <div id="sheet-backdrop" hidden></div>
-  <section id="sheet" hidden aria-modal="true" role="dialog"></section>
+  <div id="panel-backdrop" hidden></div>
+  <section id="panel" hidden aria-modal="true" role="dialog"></section>
+  <section id="karte" hidden aria-label="Revierkarte"></section>
   <div id="overlay" hidden></div>
   <div id="toasts"></div>
   <div id="fx"></div>

@@ -1,5 +1,5 @@
 // Service Worker: hält die App-Hülle offline bereit. Spieldaten kommen immer frisch vom Server.
-const VERSION = "revier-0.1.0";
+const VERSION = "revier-0.2.0";
 const SHELL = [
   "./",
   "./index.html",
@@ -7,6 +7,8 @@ const SHELL = [
   "./js/app.js",
   "./js/api.js",
   "./js/config.js",
+  "./js/iso.js",
+  "./js/map.js",
   "./manifest.webmanifest",
   "./icons/icon-192.png",
   "./icons/apple-touch-icon.png",
