@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, user-scalable=no">
+  <title>Mein Revier – Hegen, Ernten, Ansitzen</title>
+  <meta name="description" content="Das Revier-Aufbauspiel für Jäger. Wildäcker bestellen, Hochsitze beschicken, Wildbret veredeln.">
+  <meta name="theme-color" content="#1f3a2b">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="Mein Revier">
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="icon" type="image/png" sizes="192x192" href="icons/icon-192.png">
+  <link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bitter:wght@500;700;800&family=Nunito:wght@500;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div id="app">
+    <header id="topbar">
+      <button id="lvl" class="lvl" aria-label="Level">
+        <span class="lvl-num" id="lvl-num">1</span>
+        <span class="lvl-bar"><span id="xp-fill"></span></span>
+        <span class="lvl-xp" id="xp-text">0/7</span>
+      </button>
+      <div class="money">
+        <span class="pill" id="taler-pill"><i class="ico-taler"></i><b id="taler">0</b></span>
+        <span class="pill" id="grandel-pill"><i class="ico-grandel"></i><b id="grandeln">0</b></span>
+      </div>
+    </header>
+
+    <main id="view" aria-live="polite">
+      <div class="loading" id="loading">
+        <div class="loading-mark">🦌</div>
+        <p>Das Revier wird vorbereitet …</p>
+      </div>
+    </main>
+
+    <nav id="tabs">
+      <button data-tab="revier" class="active"><span>🌲</span>Revier</button>
+      <button data-tab="gasthaus"><span>🍺</span>Gasthaus<em class="badge" id="badge-gasthaus" hidden></em></button>
+      <button data-tab="lager"><span>📦</span>Lager</button>
+      <button data-tab="bauen"><span>🔨</span>Bauen<em class="badge" id="badge-bauen" hidden></em></button>
+    </nav>
+  </div>
+
+  <div id="sheet-backdrop" hidden></div>
+  <section id="sheet" hidden aria-modal="true" role="dialog"></section>
+  <div id="overlay" hidden></div>
+  <div id="toasts"></div>
+  <div id="fx"></div>
+
+  <script type="module" src="js/app.js"></script>
+</body>
+</html>
